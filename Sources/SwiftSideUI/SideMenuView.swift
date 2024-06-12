@@ -2,15 +2,9 @@ import SwiftUI
 
 @available(iOS 16.0, *)
 public struct SideMenuView<Content: View>: View {
-    public struct TabItem: Identifiable, Equatable {
-        public var id: UUID = UUID()
-        public var title: String
-        public var imageName: String
-    }
-    
+    public var tabs: [SideTabItem]
+    @Binding var selectedTab: SideTabItem
     @Binding private var isMenuOpen: Bool
-    public var tabs: [TabItem]
-    @Binding var selectedTab: TabItem
     @Binding var backColor: Color
     public var backImage: String = "airplane"
     public var selectionColor: Color = Color.blue
@@ -18,11 +12,10 @@ public struct SideMenuView<Content: View>: View {
     public var enable3D: Bool = true
     public let content: Content
     
-    
     public init(
+        tabs: [SideTabItem],
+        selectedTab: Binding<SideTabItem>,
         isMenuOpen: Binding<Bool>,
-        tabs: [TabItem],
-        selectedTab: Binding<TabItem>,
         backColor: Binding<Color>,
         backImage: String = "airplane",
         selectionColor: Color = Color.blue,
